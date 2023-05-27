@@ -1,38 +1,760 @@
+:root {
+  --dark: #003f5c;
+  --white: white;
+  --black: white;
+}
+
+[data-theme="dark"] {
+  --dark: white;
+  --white: #003f5c;
+  --black: #010203;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Kanit", sans-serif;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: var(--black);
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.Header {
+  user-select: none;
+  max-width: 640px;
+  width: 92%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 8vh;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  border-bottom: 3.5px solid #c2c2b6;
+  margin-bottom: 3vh;
+  color: var(--dark);
+}
+
+.Header #HeaderTitle {
+  cursor: pointer;
+}
+
+.Header #HeaderTitle:hover {
+  color: #77dd77;
+}
+
+.HeaderText {
+  text-align: center;
+  color: var(--dark);
+  padding: 15px;
+  border-bottom: 2px solid #c2c2b6;
+}
+
+.Date {
+  font-size: 10px;
+}
+
+.VersionChangelog {
+  font-weight: 700;
+}
+
+.Changelog {
+  font-size: 12px;
+  text-align: start;
+  text-indent: 10%;
+}
+
+.Changelog span {
+  font-weight: 900;
+  font-size: 14px;
+}
+
+#Version {
+  position: absolute;
+  top: 1vh;
+  letter-spacing: normal;
+  font-size: 10px;
+}
+
+.IconContainer {
+  display: flex;
+}
+
+.RestartMenuContainer-content {
+  background-color: var(--black);
+  width: 256px !important;
+  max-height: 512px !important;
+  overflow-y: auto;
+}
+
+.RestartMenu {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  border-radius: 5px;
+  background-color: #ffb347;
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+  font-size: 15px;
+  height: 40px;
+  width: 100%;
+  margin-top: 15px;
+  box-shadow: 0 5px 0 #c48937;
+  color: var(--white);
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
+.RestartMenu:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+.Info {
+  font-size: 30px;
+  color: var(--dark);
+}
+
+#Answer {
+  display: none;
+  padding: 10px;
+  background-color: #77dd77;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  color: var(--white);
+  font-size: 20px;
+}
+
+.Input {
+  display: none;
+  justify-content: center;
+  width: 100%;
+  height: 5vh;
+  margin: 0 0 2vh 0;
+  margin-bottom: 3vh;
+}
+
+.InputField {
+  max-width: 640px;
+  width: 360px;
+  border-radius: 5px;
+  padding: 20px;
+  border: 2.5px solid #c2c2b6;
+  font-size: 20px;
+  color: var(--dark);
+  text-align: center;
+  background-color: var(--black);
+}
+
+.InputField:focus {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  z-index: 999;
+  height: 10vh;
+  outline: none;
+  border-color: #77dd77;
+}
+
+.Row,
+.RowInfo {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.BoxContainer {
+  display: flex;
+  margin-bottom: 3vh;
+  flex-direction: column;
+  padding: 0 10px;
+  max-height: 60vh;
+  max-width: 768px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 5px 0;
+}
+
+.Boxes,
+.InfoBoxes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2.5px solid #c2c2b6;
+  color: var(--dark);
+  width: 64px;
+  height: 64px;
+  padding: 32px;
+  margin: 2px;
+  border-radius: 10%;
+  font-size: 2em;
+  user-select: none;
+  position: relative;
+}
+
+.Boxes span, .InfoBoxes span {
+  position: absolute;
+  font-size: 14px;
+  right: 0;
+  top: 0;
+  color: var(--white);
+  overflow: auto;
+  font-weight: 900;
+  padding: 0% 10%;
+  background-color: var(--dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.InfoBoxes span {
+  font-size: 12px
+}
+
+.Selected {
+  animation-name: BounceIn;
+  animation-duration: 0.2s;
+  border: 2.5px solid var(--dark);
+}
+
+.SelectedNotIn {
+  animation-name: BounceIn;
+  animation-duration: 0.2s;
+  border: 2.5px solid var(--dark);
+  color: var(--black);
+  background-color: #8bd3e6;
+}
+
+#KeyboardContainer,
+#KeyboardContainerShift {
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#KeyboardContainerShift {
+  display: none;
+}
+
+.KeyboardRow01,
+.KeyboardRow02,
+.KeyboardRow03,
+.KeyboardRow04 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Button {
+  align-items: center;
+  background-color: #ecece8;
+  border: 2.5px solid #ecece8;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 5px 0 #cacac7;
+  color: #003f5c;
+  cursor: pointer;
+  display: flex;
+  height: 56px;
+  flex-basis: 80px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  font-size: 20px;
+  justify-content: center;
+  margin: 2px 2px;
+  outline: none;
+  padding: 10px;
+  position: relative;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
+.Button:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+.Button:hover {
+  filter: brightness(80%);
+}
+
+.Del {
+  background-color: #ffb347;
+  box-shadow: 0 5px 0 #c48937;
+  color: var(--white);
+}
+
+.Enter {
+  background-color: #77dd77;
+  box-shadow: 0 5px 0 #67be67;
+  color: var(--white);
+}
+
+.Shift {
+  background-color: #8bd3e6;
+  box-shadow: 0 5px 0 #76b4c5;
+  color: var(--white);
+}
+
+.Activated {
+  animation-name: flip;
+  animation-duration: 0.5s;
+  color: var(--white);
+}
+
+.NotIn {
+  background-color: #c2c2b6;
+  border: 2.5px solid #c2c2b6;
+}
+
+.NotInKey {
+  background-color: #c2c2b6;
+  box-shadow: 0 5px 0 #a7a7a4;
+}
+
+.Match {
+  background-color: #77dd77;
+  border: 2.5px solid #77dd77;
+}
+
+.MatchKey {
+  background-color: #77dd77;
+  box-shadow: 0 5px 0 #67be67;
+}
+
+.In {
+  background-color: #ffb347;
+  border: 2.5px solid #ffb347;
+}
+
+.InKey {
+  background-color: #ffb347;
+  box-shadow: 0 5px 0 #c48937;
+}
+
+.InfoPopup-content,
+.Answer-content,
+.Win-content,
+.Alert-content,
+.StatisticPopup-content {
+  animation-name: BounceIn;
+  animation-duration: 0.4s;
+  width: 432px !important;
+  border-radius: 10px;
+}
+
+.StatisticPopup-content,
+.InfoPopup-content {
+  background-color: var(--black);
+  max-height: 720px !important;
+  overflow-y: auto;
+}
+
+.Win-overlay,
+.Answer-overlay {
+  z-index: 1 !important;
+}
+
+.Answer-content,
+.Win-content {
+  background-color: var(--black);
+  border: 2px solid #c2c2b6;
+}
+
+.Alert-content {
+  text-align: center;
   color: white;
+  background-color: #ffb347;
 }
 
-.App-link {
-  color: #61dafb;
+.InfoPopup-overlay ,
+.StatisticPopup-overlay ,
+.Win-overlay ,
+.Answer-overlay ,
+.Alert-overlay{
+  overflow: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.InfoPopupContainer,
+.AnswerContainer,
+.WinContainer,
+.StatisticContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+  width: 100%;
+}
+
+.InfoHeader,
+.StatisticHeader {
+  border-bottom: 2px solid #c2c2b6;
+  color: var(--dark);
+  font-size: 25px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.Answer-overlay,
+.Win-overlay,
+.Alert-overlay {
+  background: none !important;
+}
+
+.AnswerHeader,
+.WinHeader {
+  color: var(--dark);
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+
+.WinHeader {
+  color: #77dd77;
+}
+
+.InfoContent {
+  color: var(--dark);
+  font-size: 0.9em;
+  text-align: center;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #c2c2b6;
+}
+
+.InfoTitle {
+  color: var(--dark);
+  font-size: 20px;
+}
+
+.InfoBoxes {
+  padding: 18px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.7em;
+}
+
+.RowInfo {
+  margin: 10px 0;
+}
+
+.MatchInfo {
+  color: #77dd77;
+}
+
+.InInfo {
+  color: #ffb347;
+}
+
+.NotInInfo {
+  color: #c2c2b6;
+}
+
+.InfoClose,
+.StatsClose {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 1.8em;
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.StatsClose {
+  font-size: 1em;
+}
+
+.InfoClose:hover,
+.StatsClose:hover,
+.Info:hover,
+.Statistic:hover {
+  transform: scale(1.2);
+  color: #77dd77;
+}
+
+.Info,
+.InfoClose,
+.StatsClose,
+.Statistic {
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+
+.Restart {
+  background-color: #77dd77;
+  color: var(--white);
+  outline: none;
+  border: none;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  box-shadow: 0 5px 0 #67be67;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
+.Restart:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+.Statistic {
+  font-size: 30px;
+  color: var(--dark);
+  margin: 0px 15px;
+}
+
+.StatsBox {
+  margin: 1.5vh 0;
+  display: flex;
+}
+
+.StatsBoxes {
+  align-items: center;
+  border: #a7a7a4 solid 2.5px;
+  border-radius: 10px;
+  color: var(--dark);
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  height: 160px;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  user-select: none;
+  width: 88px;
+}
+
+.Number {
+  font-weight: 700;
+  margin: 0;
+  color: #77dd77;
+  font-size: 40px;
+}
+
+#ClearStats {
+  cursor: pointer;
+  margin-top: 20px;
+  background-color: #ffb347;
+  box-shadow: 0 5px 0 #c48937;
+}
+
+#ClearStats:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+#TimesContainer {
+  user-select: none;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 20px;
+}
+
+#TimesTextContainer {
+  padding-left: 5px;
+  color: var(--dark);
+  width: 30px;
+  text-align: start;
+}
+
+#TimesBarContainer {
+  margin-left: 8px;
+  max-width: 348px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  color: var(--dark);
+}
+
+.TimesText,
+.TimesBarBG {
+  margin-bottom: 20px;
+}
+
+.TimesBar {
+  height: 100%;
+  max-width: 342px;
+  border-radius: 5px;
+  background-color: #77dd77;
+  animation-name: Loading;
+  animation-duration: 1s;
+  transition: width 1s ease-out;
+}
+
+.TimesBarBG {
+  font-size: 16px;
+  padding: 3px;
+  border-radius: 5px;
+  width: 100%;
+  outline: #a7a7a4 solid 2.5px;
+}
+
+.ModeContainer {
+  display: flex;
+  align-items: center;
+}
+
+.Mode {
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+#Switch {
+  display: none;
+}
+
+.Slider {
+  background-color: var(--dark);
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.Slider:before {
+  background-color: var(--black);
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: .6s;
+  width: 26px;
+  border-radius: 34px;
+}
+
+input:checked + .Slider {
+  background-color: white;
+}
+
+input:checked + .Slider:before {
+  transform: translateX(26px);
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(90deg);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes BounceIn {
+  0% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes Loading {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+
+  #KeyboardContainer,
+  #KeyboardContainerShift {
+    max-width: 95vw;
+    width: 95vw;
+  }
+
+  .BoxContainer {
+    overflow-y: auto;
+  }
+
+  .Boxes {
+    width: 52px;
+    height: 52px;
+    padding: 26px;
+  }
+
+  .Button {
+    padding: 7px;
+  }
+
+  .Input {
+    display: flex;
+  }
+
+  .InputField {
+    width: 85vw;
+  }
+
+  .Number {
+    font-size: 30px;
+  }
+
+  .RowInfo {
+    margin: 5px 0px;
+  }
+
+  .InfoPopupContainer {
+    font-size: 14px;
+  }
+
+  .StatsBoxes {
+    border: 2px solid #a7a7a4;
+  }
+
+  .TimesBarBG {
+    outline: 2px solid #a7a7a4;
+  }
+}
+
+@media only screen and (max-width: 432px) {
+  .InfoPopup-content,
+  .Answer-content,
+  .Win-content,
+  .Alert-content,
+  .StatisticPopup-content {
+    max-width: 348px !important; 
+  }
+
+  .StatsBoxes {
+    width: 62px;
   }
 }
